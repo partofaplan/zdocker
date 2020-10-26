@@ -23,7 +23,12 @@ var srvr = http.createServer(function (req, res) {
             var newpath = dir + '_' + files.filetoupload.name;
             fs.rename(oldpath, newpath, function (err) {
                 if (err) throw err;
-                res.write('File uploaded');
+                res.write('File uploaded' + "\r\n");
+                res.write("\r\n");
+                res.write('Files uploaded so far...' + "\r\n");
+                fs.readdirSync(dir).forEach(file => {
+                    res.write(file + "\r\n");
+                });
                 res.end();
             });
             var mailOptions = {
